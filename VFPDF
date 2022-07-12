@@ -1,0 +1,58 @@
+<apex:page standardController="Order" renderAs="pdf">
+ 
+<!---<apex:image id="nv_logo" value="https://newviewoklahoma--full--c.documentforce.com/sfc/dist/version/renditionDownload?rendition=ORIGINAL_Jpg&versionId=06876000000b0RE&operationContext=DELIVERY&contentId=05T76000001SH7n&page=0&d=/a/760000004FwH/xQnh34.TitJLbZuGG4_z2YGM_ZSolTDTzU611HZDiRs&oid=00D760000008iqc&dpt=null&viewId=" width="500" height="250" alt="New View Oklahoma Logo" />-->
+ <apex:image id="nv_logo" url="{!$Resource.NewViewLOGO}" width="500" height="250" alt="New View Oklahoma Logo"/>
+<div style="font-family:sans-serif;"> 
+<h3>Thank you for your Order!</h3>
+</div>
+ 
+<div style="font-family:sans-serif;text-align:left;font-size:12pt;">
+<p>Thank you, <b><apex:outputText value=" {!Order.ContactName__r.Name}"/></b>, for 
+   ordering with New View Oklahoma.</p>
+ 
+<p>Your Order details are:</p>
+ 
+<table>
+<tr><th>Order Information</th>
+    <td><apex:outputText value="{!Order.Account.Name}"/></td>
+    </tr>
+<tr><th>Sales Rep</th>
+    <td><apex:outputText value="{!Order.Owner.Name}"/></td>
+    </tr>
+<tr><th>Contact Name</th>
+    <td><apex:outputText value="{!Order.ContactName__r.Name}"/></td>
+    </tr>
+<tr><th>Order Date</th>
+    <td><apex:outputText value="{0,date,long}">
+        <apex:param value="{!Order.CreatedDate}"/>
+        </apex:outputText></td>
+    </tr>
+</table>
+
+<apex:dataTable value="{!Order.OrderItems}" var="LineItems" cellPadding="5" cellspacing="0" width="100%" style="border:1px solid black;height:100%;" headerclass="tableHeader">
+<apex:column headerValue="Line Item" value="{!LineItems.Description}"/>
+<apex:column headerValue="Quantity Ordered" value="{!LineItems.Quantity}"/>
+<apex:column headerValue="Price Per Item" value="{!LineItems.UnitPrice}"/>
+<apex:column headerValue="Total Price For Item" value="{!LineItems.TotalPrice}"/>
+</apex:dataTable>
+
+<table>
+<tr><th>Order Total</th>
+    <td><apex:outputText value="{!Order.TotalAmount}"/></td>
+    </tr>
+</table>
+
+    
+<p>It's a pleasure to do business with you.  Please do not hesitate to contact us should you have any questions or concerns.</p>
+    
+<p>Sincerely,</p>
+    
+<p><apex:outputText value="{!Order.Owner.Name}"/></p>
+</div>
+
+<div style="font-family:sans-serif;text-align:left;color:#2f5a61;font-size:10pt;"><br/> 501 N Douglas Ave<br/>
+Oklahoma City, OK 73106<br/>
+(405) 232-4644<br/>
+https://nvoklahoma.org/<br/> </div>
+    
+</apex:page>
